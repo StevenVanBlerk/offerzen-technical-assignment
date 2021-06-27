@@ -212,9 +212,12 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
     <></>
   ) : (
     <TableRowButton>
-      <TableRowGrid width="100%">
+      <TableRowGrid
+        width="100%"
+        background={archived ? colors.ATHENS_GRAY : colors.WHITE}
+      >
         <TableRowGridItem>
-          <HContainer background={colors.WHITE} gridGap={paddings.DEFAULT}>
+          <HContainer gridGap={paddings.DEFAULT}>
             {/* Icons isn't responsive. Assuming all possible images are from the same set of icons */}
             <Image src={image} alt={candidate} width="40px" height="40px" />
             <TableRowText unread={unread}>{candidate}</TableRowText>
@@ -321,6 +324,7 @@ const TableRowGrid = styled((props) => <Grid {...props} />)`
   padding: ${paddings.DEFAULT};
   grid-gap: ${paddings.DEFAULT};
   border-bottom: 1px solid ${colors.CATSKILL_WHITE};
+  transition: background-color 0.2s ease;
 `;
 const TableRowGridItem = styled((props) => <Container {...props} />)`
   width: ${({ width }) => width || columnMaxWidth};

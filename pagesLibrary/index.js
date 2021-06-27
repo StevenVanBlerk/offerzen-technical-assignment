@@ -21,10 +21,8 @@ const Home = () => {
 
   const handleFilter = (e) => {
     setSearchValue(e.target.value);
-    const filteredTalent = allTalent.filter(
-      (entry) =>
-        entry.candidate.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        entry.role.toLowerCase().includes(e.target.value.toLowerCase())
+    const filteredTalent = allTalent.filter((entry) =>
+      entry.candidate.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setTalent(filteredTalent);
   };
