@@ -110,7 +110,6 @@ const TableRow = ({ item }) => {
   const formattedSalary = "R" + salary.toLocaleString("fr"); //"fr" can be removed to allow for salary formatting based on region.
 
   // date_time formatting
-  // const timestamp = formatDate(new Date("2021-10-10 12:09:51"));
   const timestamp = formatDate(new Date(date_time));
   return (
     <TableRowButton>
@@ -124,26 +123,26 @@ const TableRow = ({ item }) => {
               height="35px"
               layout="fixed" //to-do: look into what layout/dimensions to use
             />
-            <TableRowText>{candidate}</TableRowText>
+            <TableRowText unread={unread}>{candidate}</TableRowText>
           </HContainer>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText>{role || "-"}</TableRowText>
+          <TableRowText unread={unread}>{role || "-"}</TableRowText>
         </TableRowGridItem>
         <TableRowGridItem>
           <HContainer gridGap={paddings.SMALL}>
             <GreenCircle />
-            <TableRowText>{comms_desc}</TableRowText>
+            <TableRowText unread={unread}>{comms_desc}</TableRowText>
             <TableRowText fontSize="12px" color={colors.GRAY_CHATEAU}>
               {timestamp}
             </TableRowText>
           </HContainer>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText>{formattedSalary}</TableRowText>
+          <TableRowText unread={unread}>{formattedSalary}</TableRowText>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText>{sent_by}</TableRowText>
+          <TableRowText unread={unread}>{sent_by}</TableRowText>
         </TableRowGridItem>
       </TableRowGrid>
     </TableRowButton>
@@ -209,7 +208,8 @@ const TableRowGridItem = styled((props) => <Container {...props} />)`
 `;
 const TableRowText = styled((props) => <Typography {...props} />)`
   color: ${({ color }) => color || colors.JUMBO};
-  font-family: ${({ fontFamily }) => fontFamily || "Proxima-Nova-Regular"};
+  font-family: ${({ fontFamily, unread }) =>
+    unread ? "Proxima-Nova-Bold" : fontFamily || "Proxima-Nova-Regular"};
   margin: auto 0;
   white-space: nowrap;
   text-overflow: ellipsis;

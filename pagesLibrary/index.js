@@ -8,14 +8,7 @@ const Home = () => {
   return (
     <>
       <Header />
-        <TalentGrid items={interviewRequests} />
-      <Container
-        height="500px"
-        width="500px"
-        background="pink"
-        margin="100px"
-        boxShadow="rgb(0 0 0 / 10%) 1px 1px 5px"
-      />
+      <TalentGrid items={interviewRequests} />
     </>
   );
 };
