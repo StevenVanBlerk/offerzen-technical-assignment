@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { StyledComponent } from "components";
+import { colors, paddings } from "config";
 
 export const MinimalButton = styled((props) => (
   <StyledComponent as="button" {...props} />
@@ -14,5 +15,19 @@ export const MinimalButton = styled((props) => (
     &:not(:focus-visible) {
       outline: none;
     }
+  }
+`;
+
+export const MinimalInput = styled((props) => (
+  <StyledComponent as="input" {...props} />
+))`
+  font-family: ${({ fontFamily }) => fontFamily || "Proxima-Nova-Regular"};
+  color: ${({ color }) => color || colors.JUMBO};
+  border: ${({ border }) => border || "none"};
+  outline: ${({ outline }) => outline || "none"};
+  cursor: ${({ cursor }) => cursor || "auto"};
+
+  ::placeholder {
+    color: ${({ placeholderColor }) => placeholderColor || colors.GRAY_CHATEAU};
   }
 `;

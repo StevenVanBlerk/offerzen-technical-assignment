@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <>
       <Container width="100%" height="60px" background={colors.OXFORD_BLUE}>
-        <Container maxWidth="1140px" height="100%" margin="auto">
+        <Container maxWidth="1160px" height="100%" margin="auto">
           <MinimalButton height="100%">
             <Image
               src="/images/logo-white.svg"

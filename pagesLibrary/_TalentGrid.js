@@ -11,8 +11,14 @@ import {
 
 import Image from "next/image";
 
-const columnMaxWidth = "220px"; //this could be a prop if this component to make the component more generic
-export const TalentGrid = ({ items }) => {
+const columnMaxWidth = "150px"; //this could be a prop if this component to make the component more generic
+export const TalentGrid = ({
+  items,
+  toggleArchived,
+  showArchived,
+  handleSorting,
+  sortBy,
+}) => {
   const interviewCount = items.length;
   return (
     <>
@@ -31,9 +37,14 @@ export const TalentGrid = ({ items }) => {
             boxShadow={shadows.DEFAULT}
             marginBottom="5px" //bandaid fix for bug where boxShadow is cut off at bottom of div
           >
-            <TableHeader />
-            {items.map((item, key) => (
-              <TableRow key={key} item={item} />
+            <TableHeader handleSorting={handleSorting} sortBy={sortBy} />
+            {items.map((item, i) => (
+              <TableRow
+                key={i}
+                item={item}
+                toggleArchived={toggleArchived}
+                showArchived={showArchived}
+              />
             ))}
           </Container>
         </Container>
@@ -42,7 +53,7 @@ export const TalentGrid = ({ items }) => {
   );
 };
 
-const TableHeader = () => {
+const TableHeader = ({ handleSorting, sortBy }) => {
   return (
     <>
       <TableRowGrid
@@ -51,53 +62,139 @@ const TableHeader = () => {
         fontFamily="Proxima-Nova-Bold"
       >
         <TableRowGridItem>
-          <TableRowText
-            color={colors.OXFORD_BLUE}
-            fontFamily="Proxima-Nova-Bold"
+          <MinimalButton
+            onClick={() => {
+              handleSorting("candidate");
+            }}
           >
-            Candidate
-          </TableRowText>
+            <HContainer gridGap={paddings.SMALL}>
+              <TableRowText
+                color={colors.OXFORD_BLUE}
+                fontFamily="Proxima-Nova-Bold"
+              >
+                Candidate
+              </TableRowText>
+              {sortBy !== "candidate" || (
+                <Image
+                  src="/icons/sort.svg"
+                  alt="sort by"
+                  width="10px"
+                  height="10px"
+                />
+              )}
+            </HContainer>
+          </MinimalButton>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText
-            color={colors.OXFORD_BLUE}
-            fontFamily="Proxima-Nova-Bold"
+          <MinimalButton
+            onClick={() => {
+              handleSorting("role");
+            }}
           >
-            Role
-          </TableRowText>
+            <HContainer gridGap={paddings.SMALL}>
+              <TableRowText
+                color={colors.OXFORD_BLUE}
+                fontFamily="Proxima-Nova-Bold"
+              >
+                Role
+              </TableRowText>
+
+              {sortBy !== "role" || (
+                <Image
+                  src="/icons/sort.svg"
+                  alt="sort by"
+                  width="10px"
+                  height="10px"
+                />
+              )}
+            </HContainer>
+          </MinimalButton>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText
-            color={colors.OXFORD_BLUE}
-            fontFamily="Proxima-Nova-Bold"
+          <MinimalButton
+            onClick={() => {
+              handleSorting("last_comms");
+            }}
           >
-            Last communication
-          </TableRowText>
+            <HContainer gridGap={paddings.SMALL}>
+              <TableRowText
+                color={colors.OXFORD_BLUE}
+                fontFamily="Proxima-Nova-Bold"
+              >
+                Last communication
+              </TableRowText>
+
+              {sortBy !== "last_comms" || (
+                <Image
+                  src="/icons/sort.svg"
+                  alt="sort by"
+                  width="10px"
+                  height="10px"
+                />
+              )}
+            </HContainer>
+          </MinimalButton>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText
-            color={colors.OXFORD_BLUE}
-            fontFamily="Proxima-Nova-Bold"
+          <MinimalButton
+            onClick={() => {
+              handleSorting("salary");
+            }}
           >
-            Salary
-          </TableRowText>
+            <HContainer gridGap={paddings.SMALL}>
+              <TableRowText
+                color={colors.OXFORD_BLUE}
+                fontFamily="Proxima-Nova-Bold"
+              >
+                Salary
+              </TableRowText>
+
+              {sortBy !== "salary" || (
+                <Image
+                  src="/icons/sort.svg"
+                  alt="sort by"
+                  width="10px"
+                  height="10px"
+                />
+              )}
+            </HContainer>
+          </MinimalButton>
         </TableRowGridItem>
         <TableRowGridItem>
-          <TableRowText
-            color={colors.OXFORD_BLUE}
-            fontFamily="Proxima-Nova-Bold"
+          <MinimalButton
+            onClick={() => {
+              handleSorting("sent_by");
+            }}
           >
-            Sent by
-          </TableRowText>
+            <HContainer gridGap={paddings.SMALL}>
+              <TableRowText
+                color={colors.OXFORD_BLUE}
+                fontFamily="Proxima-Nova-Bold"
+              >
+                Sent by
+              </TableRowText>
+
+              {sortBy !== "sent_by" || (
+                <Image
+                  src="/icons/sort.svg"
+                  alt="sort by"
+                  width="10px"
+                  height="10px"
+                />
+              )}
+            </HContainer>
+          </MinimalButton>
         </TableRowGridItem>
+        <TableRowGridItem>{/* archived */}</TableRowGridItem>
       </TableRowGrid>
     </>
   );
 };
-const TableRow = ({ item }) => {
+const TableRow = ({ item, toggleArchived, showArchived }) => {
   const {
     archived,
     candidate,
+    id,
     image,
     last_comms,
     role,
@@ -111,25 +208,22 @@ const TableRow = ({ item }) => {
 
   // date_time formatting
   const timestamp = formatDate(new Date(date_time));
-  return (
+  return archived && showArchived === false ? (
+    <></>
+  ) : (
     <TableRowButton>
       <TableRowGrid width="100%">
         <TableRowGridItem>
           <HContainer background={colors.WHITE} gridGap={paddings.DEFAULT}>
-            <Image
-              src={image}
-              alt={candidate}
-              width="35px"
-              height="35px"
-              layout="fixed" //to-do: look into what layout/dimensions to use
-            />
+            {/* Icons isn't responsive. Assuming all possible images are from the same set of icons */}
+            <Image src={image} alt={candidate} width="40px" height="40px" />
             <TableRowText unread={unread}>{candidate}</TableRowText>
           </HContainer>
         </TableRowGridItem>
         <TableRowGridItem>
           <TableRowText unread={unread}>{role || "-"}</TableRowText>
         </TableRowGridItem>
-        <TableRowGridItem>
+        <TableRowGridItem width={`calc( ${columnMaxWidth} * 1.6)`}>
           <HContainer gridGap={paddings.SMALL}>
             <GreenCircle />
             <TableRowText unread={unread}>{comms_desc}</TableRowText>
@@ -143,6 +237,21 @@ const TableRow = ({ item }) => {
         </TableRowGridItem>
         <TableRowGridItem>
           <TableRowText unread={unread}>{sent_by}</TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem textAlign="right">
+          <ArchiveButton
+            onClick={() => {
+              toggleArchived(id);
+            }}
+          >
+            <TableRowText
+              unread={unread}
+              textAlign="right"
+              color={colors.SCOOTER}
+            >
+              {archived ? "Unarchive" : "Archive"}
+            </TableRowText>
+          </ArchiveButton>
         </TableRowGridItem>
       </TableRowGrid>
     </TableRowButton>
@@ -185,25 +294,36 @@ const formatDate = (dateTime) => {
   return timestamp;
 };
 
-const TableRowButton = styled((props) => <MinimalButton {...props} />)`
+const GreenCircle = ({ color = colors.JUNGLE_GREEN }) => (
+  <Container margin="auto 0">
+    <svg width={10} height={10}>
+      <circle cx={5} cy={5} r={5} fill={color} />
+    </svg>
+  </Container>
+);
+
+const TableRowButton = styled((props) => (
+  /*<MinimalButton as="a" role="button" tabIndex={0} {...props} />*/
+  <Container {...props} />
+))`
   display: flex;
   text-align: left;
   transition: all 0.2s ease 0s, z-index 0s;
   :hover {
-    box-shadow: rgb(0 0 0 / 15%) 0px 1px 5px 4px;
+    box-shadow: ${shadows.ACTIVE};
     z-index: 1;
     transform: translateX(-1px);
   }
 `;
 const TableRowGrid = styled((props) => <Grid {...props} />)`
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 1.6fr 1fr 1fr 0.4fr;
   background: ${({ background }) => background || colors.WHITE};
   padding: ${paddings.DEFAULT};
   grid-gap: ${paddings.DEFAULT};
   border-bottom: 1px solid ${colors.CATSKILL_WHITE};
 `;
 const TableRowGridItem = styled((props) => <Container {...props} />)`
-  width: ${columnMaxWidth};
+  width: ${({ width }) => width || columnMaxWidth};
   margin: auto 0;
 `;
 const TableRowText = styled((props) => <Typography {...props} />)`
@@ -216,10 +336,9 @@ const TableRowText = styled((props) => <Typography {...props} />)`
   overflow: hidden;
 `;
 
-const GreenCircle = ({ color = colors.JUNGLE_GREEN }) => (
-  <Container margin="auto 0">
-    <svg width={10} height={10}>
-      <circle cx={5} cy={5} r={5} fill={color} />
-    </svg>
-  </Container>
-);
+const ArchiveButton = styled((props) => <MinimalButton {...props} />)`
+  transition: all 0.2s ease;
+  :hover {
+    text-shadow: ${`0 0 1px ${colors.SCOOTER}`};
+  }
+`;
