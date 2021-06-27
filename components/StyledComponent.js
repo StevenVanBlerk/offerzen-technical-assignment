@@ -31,6 +31,7 @@ export const StyledComponent = styled.div`
 
   font-size: ${({ fontSize }) => fontSize};
   font-style: ${({ fontStyle }) => fontStyle};
+  font-weight: ${({ fontWeight }) => fontWeight};
   text-align: ${({ textAlign }) => textAlign};
   text-transform: ${({ textTransform }) => textTransform};
   text-decoration: ${({ textDecoration }) => textDecoration};

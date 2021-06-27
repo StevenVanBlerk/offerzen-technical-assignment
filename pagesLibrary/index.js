@@ -1,12 +1,16 @@
-import { VContainer } from "components";
+import { Container, Typography, Header } from "components";
+import { paddings } from "config";
 import { colors } from "config";
-
+import { TalentGrid } from "./_TalentGrid";
+let interviewRequests = require("interviewRequests.json");
 const Home = () => {
+  console.log("interviewRequests", interviewRequests);
   return (
     <>
-      <VContainer gridGap="3rem" padding="1.5rem">
-        test 123
-      </VContainer>
+      <Header />
+      <Container maxWidth="1140px" gridGap="3rem" margin="0 auto">
+        <TalentGrid items={interviewRequests} />
+      </Container>
     </>
   );
 };

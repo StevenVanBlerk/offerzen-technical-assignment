@@ -1,7 +1,7 @@
 import Document from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-//this file along with .babelrc fix the nextJS / styled-components refresh issue: (Warning: Prop 'className' did not match. Server: "x" Client: "y")
+//this file along with .babelrc bandaids the nextJS / styled-components refresh issue: (Warning: Prop 'className' did not match. Server: "x" Client: "y")
 //https://binyamin.medium.com/solving-the-styled-components-warning-in-next-js-with-babel-83080e45a0ff
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {

@@ -1,13 +1,14 @@
 html {
   margin: 0;
-  background: #1e1e1e;
+  background: #eef3f6;
 }
 
 body {
   padding: 0;
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  color: #343951; /*OXFORD_BLUE*/
+  font-family: Proxima-Nova-Regular, sans-serif;
+  font-size: 14px;
 }
 
 a {
@@ -16,22 +17,14 @@ a {
 }
 
 @font-face {
-  font-family: "Rajdhani-Bold";
-  src: url("/fonts/Rajdhani/Rajdhani-Bold.ttf") format("truetype");
+  font-family: "Proxima-Nova-Bold";
+  src: url("/fonts/Proxima-Nova-Bold.otf") format("opentype");
 }
 @font-face {
-  font-family: "Rajdhani-Light";
-  src: url("/fonts/Rajdhani/Rajdhani-Light.ttf") format("truetype");
+  font-family: "Proxima-Nova-Semibold";
+  src: url("/fonts/Proxima-Nova-Semibold.ttf") format("truetype");
 }
 @font-face {
-  font-family: "Rajdhani-Medium";
-  src: url("/fonts/Rajdhani/Rajdhani-Medium.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-Regular";
-  src: url("/fonts/Rajdhani/Rajdhani-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Rajdhani-SemiBold";
-  src: url("/fonts/Rajdhani/Rajdhani-SemiBold.ttf") format("truetype");
+  font-family: "Proxima-Nova-Regular";
+  src: url("/fonts/Proxima-Nova-Regular.ttf") format("truetype");
 }
