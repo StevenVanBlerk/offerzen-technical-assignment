@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, paddings, SHADOW } from "config";
+import { colors, paddings, shadows } from "config";
 import {
   VContainer,
   HContainer,
@@ -10,28 +10,33 @@ import {
 } from "components";
 
 import Image from "next/image";
+
+const columnMaxWidth = "220px"; //this could be a prop if this component to make the component more generic
 export const TalentGrid = ({ items }) => {
   const interviewCount = items.length;
   return (
     <>
-      <Container maxWidth="1140px" width="100%" margin="0 auto">
-        <Typography
-          color={colors.JUMBO}
-          fontWeight="bold"
-          textAlign="right"
-          padding={`${paddings.DEFAULT} 0`}
-        >
-          {interviewCount} interview request
-          {interviewCount !== 1 ? "s" : undefined}
-        </Typography>
-        {/* <TableGrid> */}
-        <Container boxShadow={SHADOW}>
-          <TableHeader />
-          {items.map((item, key) => (
-            <TableRow key={key} item={item} />
-          ))}
+      <Container overflowX="auto">
+        <Container width="fit-content" margin="0 auto">
+          <Typography
+            color={colors.JUMBO}
+            fontWeight="bold"
+            textAlign="right"
+            padding={`${paddings.DEFAULT} 0`}
+          >
+            {interviewCount} interview request
+            {interviewCount !== 1 ? "s" : undefined}
+          </Typography>
+          <Container
+            boxShadow={shadows.DEFAULT}
+            marginBottom="5px" //bandaid fix for bug where boxShadow is cut off at bottom of div
+          >
+            <TableHeader />
+            {items.map((item, key) => (
+              <TableRow key={key} item={item} />
+            ))}
+          </Container>
         </Container>
-        {/* </TableGrid> */}
       </Container>
     </>
   );
@@ -45,19 +50,46 @@ const TableHeader = () => {
         color={colors.OXFORD_BLUE}
         fontFamily="Proxima-Nova-Bold"
       >
-        <TableRowText fontFamily="Proxima-Nova-Bold">Candidate</TableRowText>
-        <TableRowText color={colors.OXFORD_BLUE} fontFamily="Proxima-Nova-Bold">
-          Role
-        </TableRowText>
-        <TableRowText color={colors.OXFORD_BLUE} fontFamily="Proxima-Nova-Bold">
-          Last communication
-        </TableRowText>
-        <TableRowText color={colors.OXFORD_BLUE} fontFamily="Proxima-Nova-Bold">
-          Salary
-        </TableRowText>
-        <TableRowText color={colors.OXFORD_BLUE} fontFamily="Proxima-Nova-Bold">
-          Sent by
-        </TableRowText>
+        <TableRowGridItem>
+          <TableRowText
+            color={colors.OXFORD_BLUE}
+            fontFamily="Proxima-Nova-Bold"
+          >
+            Candidate
+          </TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText
+            color={colors.OXFORD_BLUE}
+            fontFamily="Proxima-Nova-Bold"
+          >
+            Role
+          </TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText
+            color={colors.OXFORD_BLUE}
+            fontFamily="Proxima-Nova-Bold"
+          >
+            Last communication
+          </TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText
+            color={colors.OXFORD_BLUE}
+            fontFamily="Proxima-Nova-Bold"
+          >
+            Salary
+          </TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText
+            color={colors.OXFORD_BLUE}
+            fontFamily="Proxima-Nova-Bold"
+          >
+            Sent by
+          </TableRowText>
+        </TableRowGridItem>
       </TableRowGrid>
     </>
   );
@@ -81,28 +113,38 @@ const TableRow = ({ item }) => {
   // const timestamp = formatDate(new Date("2021-10-10 12:09:51"));
   const timestamp = formatDate(new Date(date_time));
   return (
-    <TableRowButton width="100%">
+    <TableRowButton>
       <TableRowGrid width="100%">
-        <HContainer background={colors.WHITE} gridGap={paddings.DEFAULT}>
-          <Image
-            src={image}
-            alt={candidate}
-            width="35px"
-            height="35px"
-            layout="fixed" //to-do: look into what layout/dimensions to use
-          />
-          <TableRowText>{candidate}</TableRowText>
-        </HContainer>
-        <TableRowText>{role}</TableRowText>
-        <HContainer gridGap={paddings.SMALL}>
-          <GreenCircle />
-          <TableRowText>{comms_desc}</TableRowText>
-          <TableRowText fontSize="12px" color={colors.GRAY_CHATEAU}>
-            {timestamp}
-          </TableRowText>
-        </HContainer>
-        <TableRowText>{formattedSalary}</TableRowText>
-        <TableRowText>{sent_by}</TableRowText>
+        <TableRowGridItem>
+          <HContainer background={colors.WHITE} gridGap={paddings.DEFAULT}>
+            <Image
+              src={image}
+              alt={candidate}
+              width="35px"
+              height="35px"
+              layout="fixed" //to-do: look into what layout/dimensions to use
+            />
+            <TableRowText>{candidate}</TableRowText>
+          </HContainer>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText>{role || "-"}</TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <HContainer gridGap={paddings.SMALL}>
+            <GreenCircle />
+            <TableRowText>{comms_desc}</TableRowText>
+            <TableRowText fontSize="12px" color={colors.GRAY_CHATEAU}>
+              {timestamp}
+            </TableRowText>
+          </HContainer>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText>{formattedSalary}</TableRowText>
+        </TableRowGridItem>
+        <TableRowGridItem>
+          <TableRowText>{sent_by}</TableRowText>
+        </TableRowGridItem>
       </TableRowGrid>
     </TableRowButton>
   );
@@ -147,17 +189,31 @@ const formatDate = (dateTime) => {
 const TableRowButton = styled((props) => <MinimalButton {...props} />)`
   display: flex;
   text-align: left;
+  transition: all 0.2s ease 0s, z-index 0s;
+  :hover {
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 5px 4px;
+    z-index: 1;
+    transform: translateX(-1px);
+  }
 `;
 const TableRowGrid = styled((props) => <Grid {...props} />)`
   grid-template-columns: repeat(5, 1fr);
   background: ${({ background }) => background || colors.WHITE};
   padding: ${paddings.DEFAULT};
+  grid-gap: ${paddings.DEFAULT};
+  border-bottom: 1px solid ${colors.CATSKILL_WHITE};
 `;
-
+const TableRowGridItem = styled((props) => <Container {...props} />)`
+  width: ${columnMaxWidth};
+  margin: auto 0;
+`;
 const TableRowText = styled((props) => <Typography {...props} />)`
-  color: ${({ color }) => color || colors.OXFORD_BLUE};
+  color: ${({ color }) => color || colors.JUMBO};
   font-family: ${({ fontFamily }) => fontFamily || "Proxima-Nova-Regular"};
   margin: auto 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const GreenCircle = ({ color = colors.JUNGLE_GREEN }) => (

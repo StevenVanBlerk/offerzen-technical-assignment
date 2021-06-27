@@ -12,7 +12,16 @@ export const StyledComponent = styled.div`
   min-width: ${({ minWidth }) => minWidth};
 
   margin: ${({ margin }) => margin};
+  margin-top: ${({ marginTop }) => marginTop};
+  margin-right: ${({ marginRight }) => marginRight};
+  margin-bottom: ${({ marginBottom }) => marginBottom};
+  margin-left: ${({ marginLeft }) => marginLeft};
+
   padding: ${({ padding }) => padding};
+  padding-top: ${({ paddingTop }) => paddingTop};
+  padding-right: ${({ paddingRight }) => paddingRight};
+  padding-bottom: ${({ paddingBottom }) => paddingBottom};
+  padding-left: ${({ paddingLeft }) => paddingLeft};
 
   border: ${({ border }) => border};
   border-radius: ${({ borderRadius }) => borderRadius};
@@ -21,6 +30,9 @@ export const StyledComponent = styled.div`
   border-bottom: ${({ borderBottom }) => borderBottom};
   border-left: ${({ borderLeft }) => borderLeft};
 
+  vertical-align: ${({ verticalAlign }) => verticalAlign};
+
+  box-shadow: ${({ boxShadow }) => boxShadow};
   grid-gap: ${({ gridGap }) => gridGap};
   justify-content: ${({ justifyContent }) => justifyContent};
   justify-self: ${({ justifySelf }) => justifySelf};
@@ -35,11 +47,10 @@ export const StyledComponent = styled.div`
   text-align: ${({ textAlign }) => textAlign};
   text-transform: ${({ textTransform }) => textTransform};
   text-decoration: ${({ textDecoration }) => textDecoration};
+  text-overflow: ${({ textOverflow }) => textOverflow};
   color: ${({ color }) => color};
   line-height: ${({ lineHeight }) => lineHeight};
-
   word-wrap: ${({ wordWrap }) => wordWrap};
-  vertical-align: ${({ verticalAlign }) => verticalAlign};
 
   top: ${({ top }) => top};
   bottom: ${({ bottom }) => bottom};

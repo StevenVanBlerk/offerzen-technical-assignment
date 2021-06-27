@@ -6,6 +6,6 @@ export const Typography = styled((props) => (
 ))`
   margin: ${({ margin }) => margin || 0};
   font-family: ${({ fontFamily }) => fontFamily || "Proxima-Nova-Regular"};
-  color: ${({ color }) => color || colors.OXFORD_BLUE};
+  color: ${({ color }) => color || colors.JUMBO};
   font-size: ${({ fontSize }) => fontSize || FONT_SIZE};
 `;

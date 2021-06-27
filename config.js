@@ -15,6 +15,9 @@ export const colors = {
 
 export const paddings = { DEFAULT: "12px", SMALL: "6px" };
 
-export const SHADOW = "1px 1px 5px rgba(0,0,0,0.1)"; //1px 1px 5px #000 @ 10%
+export const shadows = {
+  DEFAULT: "rgb(0 0 0 / 10%) 1px 1px 5px",
+  ACTIVE: "rgb(0 0 0 / 15%) 0px 1px 5px 4px",
+};
 
 export const FONT_SIZE = "14px";

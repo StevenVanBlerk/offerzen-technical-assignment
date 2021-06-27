@@ -8,9 +8,14 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="1140px" gridGap="3rem" margin="0 auto">
         <TalentGrid items={interviewRequests} />
-      </Container>
+      <Container
+        height="500px"
+        width="500px"
+        background="pink"
+        margin="100px"
+        boxShadow="rgb(0 0 0 / 10%) 1px 1px 5px"
+      />
     </>
   );
 };
