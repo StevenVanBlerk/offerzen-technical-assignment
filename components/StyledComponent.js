@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+//This component is used as the foundation for all generic components to make all components quickly styleable
 export const StyledComponent = styled.div`
   display: ${({ display }) => display};
   position: ${({ position }) => position};

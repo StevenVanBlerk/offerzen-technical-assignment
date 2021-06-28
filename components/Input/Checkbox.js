@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { colors, paddings } from "config";
 import { MinimalButton, Container, Typography } from "components";
 
-// Custom Checkbox based on https://medium.com/@colebemis/building-a-checkbox-component-with-react-and-styled-components-8d3aa1d826dd
+/*  A custom and generic Checkbox that is still tababble */
+
+//Box Icon
 const Box = ({
   className,
   checked,
@@ -41,6 +43,7 @@ const Box = ({
   );
 };
 
+// Box Icon & Label(optional)
 export const Checkbox = ({
   className,
   checked,
@@ -77,6 +80,8 @@ export const Checkbox = ({
     </>
   );
 };
+
+// styled-components relevant to this component
 
 const Label = styled.label`
   display: flex;

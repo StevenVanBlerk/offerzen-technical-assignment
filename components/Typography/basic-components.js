@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { colors, FONT_SIZE } from "config";
 import { StyledComponent } from "components";
+
+// Basic Typography used for all text
 export const Typography = styled((props) => (
   <StyledComponent as="p" {...props} />
 ))`

@@ -1,17 +1,23 @@
 import styled from "styled-components";
 import { colors, paddings, shadows } from "config";
 import {
-  VContainer,
   HContainer,
   Container,
   Grid,
   MinimalButton,
   Typography,
 } from "components";
-
 import Image from "next/image";
 
-const columnMaxWidth = "150px"; //this could be a prop if this component to make the component more generic
+const columnMaxWidth = "150px"; //this could be a prop if this component were needed to be more generic
+/* This component is the bulk of the site. All state is managed in index.js and passed down to here. 
+This file includes the interview requests count and Candidate table.
+
+The general structure of this component is some basic outer divs with some basic styling like shadows and a series of grids,
+each acting as a row of the table.
+
+This component (and the whole page) are fully responsive for mobile
+*/
 export const TalentGrid = ({
   items,
   toggleArchived,
@@ -53,6 +59,8 @@ export const TalentGrid = ({
   );
 };
 
+/* Header bar of table. Contains column labels and sorting functionality. In hindsight, these headers could be mapped from an array of strings
+to reduce the amount of code in this file. */
 const TableHeader = ({ handleSorting, sortBy }) => {
   return (
     <>
@@ -190,27 +198,23 @@ const TableHeader = ({ handleSorting, sortBy }) => {
     </>
   );
 };
+
+/* A row representing communication with a single candidate */
 const TableRow = ({ item, toggleArchived, showArchived }) => {
-  const {
-    archived,
-    candidate,
-    id,
-    image,
-    last_comms,
-    role,
-    salary,
-    sent_by,
-    status,
-  } = item;
+  const { archived, candidate, id, image, last_comms, role, salary, sent_by } =
+    item;
   const { unread, description: comms_desc, date_time } = last_comms;
   //salary formatting
   const formattedSalary = "R" + salary.toLocaleString("fr"); //"fr" can be removed to allow for salary formatting based on region.
 
   // date_time formatting
   const timestamp = formatDate(new Date(date_time));
+
+  // handling whether or not archived rows are displayed
   return archived && showArchived === false ? (
     <></>
   ) : (
+    // Row is encapsulated by a button (renders as an anchor tag) that would direct to the relevant candidate page
     <TableRowButton>
       <TableRowGrid
         width="100%"
@@ -218,7 +222,7 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
       >
         <TableRowGridItem>
           <HContainer gridGap={paddings.DEFAULT}>
-            {/* Icons isn't responsive. Assuming all possible images are from the same set of icons */}
+            {/* Icon isn't responsive. Assuming all possible images are from the same set of icons */}
             <Image src={image} alt={candidate} width="40px" height="40px" />
             <TableRowText unread={unread}>{candidate}</TableRowText>
           </HContainer>
@@ -226,9 +230,12 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
         <TableRowGridItem>
           <TableRowText unread={unread}>{role || "-"}</TableRowText>
         </TableRowGridItem>
+        {/* Last communication column is 1.6x the size of the other columns */}
         <TableRowGridItem width={`calc( ${columnMaxWidth} * 1.6)`}>
           <HContainer gridGap={paddings.SMALL}>
-            <GreenCircle />
+            <GreenCircle
+              color={unread === false ? colors.JUNGLE_GREEN : "transparent"}
+            />
             <TableRowText unread={unread}>{comms_desc}</TableRowText>
             <TableRowText fontSize="12px" color={colors.GRAY_CHATEAU}>
               {timestamp}
@@ -241,6 +248,7 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
         <TableRowGridItem>
           <TableRowText unread={unread}>{sent_by}</TableRowText>
         </TableRowGridItem>
+        {/* this column is 0.4x the size of other columns */}
         <TableRowGridItem textAlign="right">
           <ArchiveButton
             onClick={() => {
@@ -261,6 +269,7 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
   );
 };
 
+/* A function to format and neaten timestamps */
 const formatDate = (dateTime) => {
   let dateTimeCopy = new Date(dateTime.getTime()); //ensuring copy is a different object
 
@@ -297,6 +306,7 @@ const formatDate = (dateTime) => {
   return timestamp;
 };
 
+// A basic svg of a green/transparent circle (depending on if message is unread/read)
 const GreenCircle = ({ color = colors.JUNGLE_GREEN }) => (
   <Container margin="auto 0">
     <svg width={10} height={10}>
@@ -305,9 +315,10 @@ const GreenCircle = ({ color = colors.JUNGLE_GREEN }) => (
   </Container>
 );
 
+/* styled-components relevant to this file */
+
 const TableRowButton = styled((props) => (
-  /*<MinimalButton as="a" role="button" tabIndex={0} {...props} />*/
-  <Container {...props} />
+  <MinimalButton as="a" role="button" tabIndex={0} {...props} />
 ))`
   display: flex;
   text-align: left;

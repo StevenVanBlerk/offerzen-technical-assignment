@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { colors } from "config";
 import { Container, MinimalButton } from "components";
 import Image from "next/image";
+
+// Basic header that would exist on all pages
 export const Header = () => {
   return (
     <>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { StyledComponent } from "components";
 import { colors, paddings } from "config";
 
+// The minimalist button that still features a tabbable outline
 export const MinimalButton = styled((props) => (
   <StyledComponent as="button" {...props} />
 ))`

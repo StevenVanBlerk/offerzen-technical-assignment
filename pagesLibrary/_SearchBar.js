@@ -1,13 +1,9 @@
-import {
-  Container,
-  Typography,
-  MinimalButton,
-  MinimalInput,
-  HContainer,
-} from "components";
+import { MinimalInput, HContainer } from "components";
 import { paddings } from "config";
 import { colors } from "config";
 import Image from "next/image";
+
+// Controlled input that acts as a search bar
 export const SearchBar = ({ value, onChange = () => {} }) => {
   return (
     <>

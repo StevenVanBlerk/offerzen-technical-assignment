@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "config";
 import { StyledComponent } from "components";
 
 //Flexible container that acts as the foundation for all containers
@@ -11,6 +10,7 @@ export const Container = styled((props) => (
 export const Grid = styled(Container)`
   display: grid;
 `;
+// **This grid is NOT used in this Project**
 export const FlowingGrid = styled(Grid)`
   //minmax only matters for extreme edge case of extremely narrow screen
   grid-template-columns: ${({ columnMaxWidth = "250px" }) =>
