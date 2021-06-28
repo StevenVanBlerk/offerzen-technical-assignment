@@ -233,7 +233,6 @@ const TableRow = ({ item, toggleArchived, showArchived }) => {
         {/* Last communication column is 1.6x the size of the other columns */}
         <TableRowGridItem width={`calc( ${columnMaxWidth} * 1.6)`}>
           <HContainer gridGap={paddings.SMALL}>
-            {unread.toString()}
             <GreenCircle
               color={unread === false ? "transparent" : colors.JUNGLE_GREEN}
             />
