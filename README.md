@@ -33,8 +33,7 @@ There are several places where I've deep copied arrays / objects. For the sake o
 It would be nice to improve on some of the visual feedback. For example, adding a fade in/out effect when filtering data, or changing the sort icon depending on if the column is ascending or descending.  
 If done again, I would focus on building the functionality of the table and buttons/inputs before any big styling to avoid undoing styling that no longer works once functionality changes.
 ### Do you have any feedback on this assignment? For example: What did you enjoy? What could be better? Which aspects were unclear?
-could be better? Which aspects were unclear?
-Something that could be improved on in the assignment is to make the desired fonts more easily accessible. Having font files or links to the exact fonts would help in avoiding fonts that are similarly named but not quite right.  
+Something that could be improved on in the assignment is to make the desired fonts more easily accessible. Having font files or links to the exact fonts would help in avoiding fonts that are similarly named but not quite right.
 Whether or not the page needs to be responsive wasn't clear.  
 To properly develop some of these components requires quite a big chunk of dev time. If the dev doesn't have many previous code samples to pull from, a 4 hour timeframe would result in a far less finished product than the desired end product. I do get that this is acknowledged somewhat in the task though.
 
